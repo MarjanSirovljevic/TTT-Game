@@ -14,6 +14,7 @@ $(document).ready(function() {
         if((cells[a] == cells[b] && cells[b] == cells[c] ) && cells[a] != '' && cells[b] != '' ) {
             $gameInfo.html('GAME OVER');
             $gameInfo.append($('<p>').text(`${cells[a]} - wins`));
+            $('td').off();
 
             $( `td[id='cell_${a}']`).css({
                 backgroundColor: 'beige',
@@ -33,7 +34,6 @@ $(document).ready(function() {
                 fontSize: '20px',
                 fontWeight: 'bold'
             });
-            return;
         }
     }
     
@@ -51,6 +51,7 @@ $(document).ready(function() {
         if(movesCount.length == 9 && $gameInfo.html() == '') {
             $gameInfo.html('GAME OVER');
             $gameInfo.append($('<p>').text('No clear winner, try again'));
+            $('td').off();
         }
     }
 
@@ -59,6 +60,7 @@ $(document).ready(function() {
         var $tr;
         var currentMove;
         var movesCount = [];
+        
         $.each(cells, function(i) {
             if(i % 3 === 0) {
                 $tr = $('<tr>');
@@ -71,7 +73,6 @@ $(document).ready(function() {
                     currentMove = (movesCount.length % 2) ? 'X' : 'O';
                     $(this).text(currentMove);
                     cells[$(this).attr('id').slice(-1)] = currentMove;
-                    console.log(movesCount, currentMove, cells);
                     analizingGame(movesCount);
                 }
             });
